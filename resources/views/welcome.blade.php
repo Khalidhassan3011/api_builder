@@ -1,37 +1,7 @@
-<!DOCTYPE html>
-<html class="h-full" data-theme="true" data-theme-mode="light" dir="ltr" lang="en">
- <head><base href="../../../../../">
-  <title>
-   Api Builder
-  </title>
-  <meta charset="utf-8"/>
-  @vite('resources/css/app.scss')
- </head>
- <body class="antialiased flex h-full text-base text-gray-700 dark:bg-coal-500">
-  <!-- Theme Mode -->
-  <script>
-   const defaultThemeMode = 'light'; // light|dark|system
-		let themeMode;
+@extends('layouts.base')
 
-		if ( document.documentElement ) {
-			if ( localStorage.getItem('theme')) {
-					themeMode = localStorage.getItem('theme');
-			} else if ( document.documentElement.hasAttribute('data-theme-mode')) {
-				themeMode = document.documentElement.getAttribute('data-theme-mode');
-			} else {
-				themeMode = defaultThemeMode;
-			}
-
-			if (themeMode === 'system') {
-				themeMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-			}
-
-			document.documentElement.classList.add(themeMode);
-		}
-  </script>
-  <!-- End of Theme Mode -->
-  <!-- Page -->
-  <style>
+@section('main')
+<style>
    .branded-bg {
 			background-image:url('{{ asset('assets/media/images/2600x1600/bg-2.png') }}');
 		}
@@ -127,8 +97,4 @@
    </div>
   </div>
   <!-- End of Page -->
-  <!-- Scripts -->
-  @vite('resources/js/app.js')
-  <!-- End of Scripts -->
- </body>
-</html>
+@endsection
