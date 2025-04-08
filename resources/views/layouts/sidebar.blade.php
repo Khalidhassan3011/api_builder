@@ -24,43 +24,43 @@
       <!-- Sidebar Menu -->
       <div class="menu flex flex-col grow gap-0.5" data-menu="true" data-menu-accordion-expand-all="false" id="sidebar_menu">
        <div class="menu-item here show" data-menu-item-toggle="accordion" data-menu-item-trigger="click">
-        <div class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]" tabindex="0">
+        <a href="{{ route('dashboard') }}" class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]" tabindex="0">
          <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-          <i class="ki-filled ki-element-11 text-lg">
-          </i>
+          <i class="ki-filled ki-element-11 text-lg"></i>
          </span>
          <span class="menu-title text-sm font-medium text-gray-800 menu-item-active:text-primary menu-link-hover:!text-primary">
-          Dashboards
+            Dashboards
          </span>
-        </div>
+        </a>
        </div>
+
        <div class="menu-item pt-2.25 pb-px">
         <span class="menu-heading uppercase text-2sm font-medium text-gray-500 ps-[10px] pe-[10px]">
          API Builders
         </span>
        </div>
        <div class="menu-item">
-        <div class="menu-label border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]" href="" tabindex="0">
-         <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-          <i class="ki-filled ki-abstract-8 text-lg">
-          </i>
-         </span>
-         <span class="menu-title text-sm font-medium text-gray-800">
-          Easy Builder
-         </span>
-        </div>
+        <a href="{{ route('builders.easy.index') }}" class="menu-label border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]" tabindex="0">
+            <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
+                <i class="ki-filled ki-abstract-8 text-lg"></i>
+            </span>
+            <span class="menu-title text-sm font-medium text-gray-800">
+                Easy Builder
+            </span>
+        </a>
        </div>
+
        <div class="menu-item">
-        <div class="menu-label border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]" href="" tabindex="0">
-         <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-          <i class="ki-filled ki-abstract-32 text-lg">
-          </i>
-         </span>
-         <span class="menu-title text-sm font-medium text-gray-800">
-          Advanced Builder
-         </span>
-        </div>
-       </div>
+        <a href="{{ route('builders.advanced.index') }}" class="menu-label border border-transparent gap-[10px] ps-[10px] pe-[10px] py-[6px]" tabindex="0">
+            <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
+                <i class="ki-filled ki-abstract-32 text-lg"></i>
+            </span>
+            <span class="menu-title text-sm font-medium text-gray-800">
+                Advanced Builder
+            </span>
+        </a>
+    </div>
+
        <div class="menu-item pt-2.25 pb-px">
         <span class="menu-heading uppercase text-2sm font-medium text-gray-500 ps-[10px] pe-[10px]">
          User
