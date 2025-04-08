@@ -1,13 +1,3 @@
-<!--
-Product: Metronic is a toolkit of UI components built with Tailwind CSS for developing scalable web applications quickly and efficiently
-Version: v9.1.1
-Author: Keenthemes
-Contact: support@keenthemes.com
-Website: https://www.keenthemes.com
-Support: https://devs.keenthemes.com
-Follow: https://www.twitter.com/keenthemes
-License: https://keenthemes.com/metronic/tailwind/docs/getting-started/license
--->
 <!DOCTYPE html>
 <html class="h-full" data-theme="true" data-theme-mode="light" dir="ltr" lang="en">
  <head><base href="../../../../../">
@@ -15,31 +5,6 @@ License: https://keenthemes.com/metronic/tailwind/docs/getting-started/license
    Api Builder
   </title>
   <meta charset="utf-8"/>
-  <!-- <meta content="follow, index" name="robots"/>
-  <link href="{{ url('metronic-tailwind-html/demo1/authentication/branded/sign-in/index.html') }}" rel="canonical"/>
-  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
-  <meta content="Sign in page, using Tailwind CSS" name="description"/>
-  <meta content="@keenthemes" name="twitter:site"/>
-  <meta content="@keenthemes" name="twitter:creator"/>
-  <meta content="summary_large_image" name="twitter:card"/>
-  <meta content="Metronic - Tailwind CSS Sign In" name="twitter:title"/>
-  <meta content="Sign in page, using Tailwind CSS" name="twitter:description"/>
-  <meta content="{{ asset('assets/media/app/og-image.png') }}" name="twitter:image"/>
-  <meta content="{{ url('metronic-tailwind-html/demo1/authentication/branded/sign-in/index.html') }}" property="og:url"/>
-  <meta content="en_US" property="og:locale"/>
-  <meta content="website" property="og:type"/>
-  <meta content="@keenthemes" property="og:site_name"/>
-  <meta content="Metronic - Tailwind CSS Sign In" property="og:title"/>
-  <meta content="Sign in page, using Tailwind CSS" property="og:description"/> -->
-  <!-- <meta content="{{ asset('assets/media/app/og-image.png') }}" property="og:image"/> -->
-  <!-- <link href="{{ asset('assets/media/app/apple-touch-icon.png') }}" rel="apple-touch-icon" sizes="180x180"/>
-  <link href="{{ asset('assets/media/app/favicon-32x32.png') }}" rel="icon" sizes="32x32" type="image/png"/>
-  <link href="{{ asset('assets/media/app/favicon-16x16.png') }}" rel="icon" sizes="16x16" type="image/png"/>
-  <link href="{{ asset('assets/media/app/favicon.ico') }}" rel="shortcut icon"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <link href="{{ asset('assets/vendors/apexcharts/apexcharts.css') }}" rel="stylesheet"/>
-  <link href="{{ asset('assets/vendors/keenicons/styles.bundle.css') }}" rel="stylesheet"/>
-  <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet"/> -->
   @vite('resources/css/app.scss')
  </head>
  <body class="antialiased flex h-full text-base text-gray-700 dark:bg-coal-500">
@@ -68,10 +33,10 @@ License: https://keenthemes.com/metronic/tailwind/docs/getting-started/license
   <!-- Page -->
   <style>
    .branded-bg {
-			background-image:url('{{ asset('assets/media/images/2600x1600/1.png') }}');
+			background-image:url('{{ asset('assets/media/images/2600x1600/bg-2.png') }}');
 		}
 		.dark .branded-bg {
-			background-image: url('{{ asset('assets/media/images/2600x1600/1-dark.png') }}');
+			background-image: url('{{ asset('assets/media/images/2600x1600/bg-2-dark.png') }}');
 		}
   </style>
   <div class="grid lg:grid-cols-2 grow">
@@ -141,18 +106,21 @@ License: https://keenthemes.com/metronic/tailwind/docs/getting-started/license
      </a>
      <div class="flex flex-col gap-3">
       <h3 class="text-2xl font-semibold text-gray-900">
-       Secure Access Portal
+      API Builder
       </h3>
       <div class="text-base font-medium text-gray-600">
-       A robust authentication gateway ensuring
+       Create Powerful APIs in Minutes
        <br/>
-       secure
+       Simplifying the
        <span class="text-gray-900 font-semibold">
-        efficient user access
+       API Development 
        </span>
-       to the Metronic
+       Process for 
        <br/>
-       Dashboard interface.
+       Developers of All Skill Levels. 
+       <span class="text-gray-900 font-semibold">
+       No Code Experience Needed!
+       </span>
       </div>
      </div>
     </div>
