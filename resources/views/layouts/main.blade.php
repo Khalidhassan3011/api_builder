@@ -11,9 +11,7 @@
                 </div>
                 <!-- end: container -->
                 <!-- begin: container -->
-                <div class="container-fixed">
-                    @yield('content')
-                </div>
+                @yield('content')
                 <!-- end: container -->
             </main>
             @include('layouts.footer')
