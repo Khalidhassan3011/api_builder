@@ -21,28 +21,9 @@
                     </h3>
                     <div class="flex items-center justify-center font-medium">
                         <span class="text-2sm text-gray-700 me-1.5">
-                            Need an account?
+                            Explore new experience
                         </span>
-                        <a class="text-2sm link" href="{{ url('demos/authentication/branded/sign-up.html') }}">
-                            Sign up
-                        </a>
                     </div>
-                </div>
-                <div class="grid grid-cols-2 gap-2.5">
-                    <a class="btn btn-light btn-sm justify-center" href="#">
-                        <img alt="" class="size-3.5 shrink-0" src="{{ asset('assets/media/brand-logos/google.svg') }}" />
-                        Use Google
-                    </a>
-                    <a class="btn btn-light btn-sm justify-center" href="#">
-                        <img alt="" class="size-3.5 shrink-0 dark:hidden" src="{{ asset('assets/media/brand-logos/apple-black.svg') }}" />
-                        <img alt="" class="size-3.5 shrink-0 light:hidden" src="{{ asset('assets/media/brand-logos/apple-white.svg') }}" />
-                        Use Apple
-                    </a>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="border-t border-gray-200 w-full"></span>
-                    <span class="text-2xs text-gray-500 font-medium uppercase">Or</span>
-                    <span class="border-t border-gray-200 w-full"></span>
                 </div>
                 <div class="flex flex-col gap-1">
                     <label class="form-label font-normal text-gray-900">Email</label>
