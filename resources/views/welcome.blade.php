@@ -14,7 +14,8 @@
 <div class="grid lg:grid-cols-2 grow">
     <div class="flex justify-center items-center p-8 lg:p-10 order-2 lg:order-1">
         <div class="card max-w-[370px] w-full">
-            <form action="#" class="card-body flex flex-col gap-5 p-10" id="sign_in_form" method="get">
+            <form action="{{ route('login') }}" class="card-body flex flex-col gap-5 p-10" id="sign_in_form" method="post">
+                @csrf {{-- Add CSRF token --}}
                 <div class="text-center mb-2.5">
                     <h3 class="text-lg font-medium text-gray-900 leading-none mb-2.5">
                         Sign in
@@ -27,7 +28,10 @@
                 </div>
                 <div class="flex flex-col gap-1">
                     <label class="form-label font-normal text-gray-900">Email</label>
-                    <input class="input" placeholder="email@email.com" type="text" value="" />
+                    <input class="input" name="email" placeholder="email@email.com" type="email" value="{{ old('email') }}" required autofocus /> {{-- Add name="email", type="email", required, autofocus and old value --}}
+                    @error('email')
+                        <span class="text-red-500 text-sm mt-1">{{ $message }}</span> {{-- Display email validation errors --}}
+                    @enderror
                 </div>
                 <div class="flex flex-col gap-1">
                     <div class="flex items-center justify-between gap-1">
@@ -37,18 +41,21 @@
                         </a>
                     </div>
                     <div class="input" data-toggle-password="true">
-                        <input name="user_password" placeholder="Enter Password" type="password" value="" />
+                        <input name="password" placeholder="Enter Password" type="password" required /> {{-- Change name to "password" and add required --}}
                         <button class="btn btn-icon" data-toggle-password-trigger="true" type="button">
                             <i class="ki-filled ki-eye text-gray-500 toggle-password-active:hidden"></i>
                             <i class="ki-filled ki-eye-slash text-gray-500 hidden toggle-password-active:block"></i>
                         </button>
                     </div>
+                    @error('password')
+                        <span class="text-red-500 text-sm mt-1">{{ $message }}</span> {{-- Display password validation errors --}}
+                    @enderror
                 </div>
                 <label class="checkbox-group">
-                    <input class="checkbox checkbox-sm" name="check" type="checkbox" value="1" />
+                    <input class="checkbox checkbox-sm" name="remember" type="checkbox" value="1" /> {{-- Change name to "remember" --}}
                     <span class="checkbox-label">Remember me</span>
                 </label>
-                <button class="btn btn-primary flex justify-center grow">Sign In</button>
+                <button type="submit" class="btn btn-primary flex justify-center grow">Sign In</button> {{-- Change to type="submit" --}}
             </form>
         </div>
     </div>
