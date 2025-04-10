@@ -32,19 +32,38 @@
 
 
 <div class="modal" data-modal="true" id="advanced_project_add_modal">
-    <div class="modal-content max-w-[600px] top-[20%]">
-        <div class="modal-header">
-            <h3 class="modal-title">
-                Modal Title
-            </h3>
-            <button class="btn btn-xs btn-icon btn-light" data-modal-dismiss="true">
-                <i class="ki-outline ki-cross">
-                </i>
-            </button>
-        </div>
+    <div class="modal-content max-w-[500px] top-[20%]">
+        <button class="btn btn-xs btn-icon btn-light absolute top-7.5 right-7.5" data-modal-dismiss="true">
+            <i class="ki-outline ki-cross"></i>
+        </button>
         <div class="modal-body">
-            Modal components are commonly used for various purposes such as displaying login forms, confirming actions, presenting multimedia content, or showing detailed information.
-            They provide a non-intrusive way to engage users and guide them through specific tasks or actions while maintaining the context of the underlying webpage.
+
+            <form action="#" class="card-body flex flex-col gap-5 p-10" id="sign_in_form" method="get">
+                <div class="text-center mb-5">
+                    <h3 class="text-lg font-medium text-gray-900 leading-none mb-2.5">
+                        Create New Project
+                    </h3>
+                    <div class="flex items-center justify-center font-medium">
+                        <span class="text-2sm text-gray-500 me-1.5">
+                            Kickstart Your Next Project
+                        </span>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label class="form-label font-normal text-gray-900">Project Name</label>
+                    <input class="input" placeholder="Enter project name" type="text" value="" />
+                </div>
+                <div class="flex flex-col gap-1">
+                    <div class="flex items-center justify-between gap-1">
+                        <label class="form-label font-normal text-gray-900">Description</label>
+                    </div>
+                    <div class="input">
+                        <input placeholder="Enter short description" type="text" value="" />
+                    </div>
+                </div>
+                <button class="btn btn-primary flex justify-center grow mt-5">Save</button>
+            </form>
+
         </div>
     </div>
 </div>
@@ -65,12 +84,6 @@
                         </i>
                         <input class="input input-sm ps-8" data-datatable-search="#teams_table" placeholder="Search Teams" type="text" />
                     </div>
-                    <label class="switch switch-sm">
-                        <input class="order-2" name="check" type="checkbox" value="1" />
-                        <span class="switch-label order-1">
-                            Only Active Groups
-                        </span>
-                    </label>
                 </div>
             </div>
             <div class="card-body">
