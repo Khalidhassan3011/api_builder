@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Builders\ProjectAdvancedController; // Import the controller
 use App\Http\Middleware\RedirectIfNotAuthenticated;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,9 @@ Route::middleware(RedirectIfNotAuthenticated::class)->group(function () {
 
     Route::prefix('builders')->group(function () {
         Route::get('/easy', function () { return view('builders.easy.index');})->name('builders.easy.index');
+
+        // Routes for Advanced Builder
         Route::get('/advanced', function () { return view('builders.advanced.index');})->name('builders.advanced.index');
+        Route::post('/advanced', [ProjectAdvancedController::class, 'store'])->name('builders.advanced.store'); // Add POST route for storing
     });
 });

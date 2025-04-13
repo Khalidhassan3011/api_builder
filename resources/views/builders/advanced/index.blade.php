@@ -12,11 +12,21 @@
 @endsection
 
 @section('content')
+
+{{-- Display Success Message --}}
+@if (session('success'))
+    <div class="container-fixed mb-5">
+        <div class="bg-success-light border border-success text-success px-4 py-3 rounded relative" role="alert">
+            <span class="block sm:inline">{{ session('success') }}</span>
+        </div>
+    </div>
+@endif
+
 <div class="container-fixed">
     <div class="flex flex-wrap items-center lg:items-end justify-between gap-5 pb-7.5">
         <div class="flex flex-col justify-center gap-2">
             <h1 class="text-xl font-medium leading-none text-gray-900">
-                Projects(14)
+                Projects(14) {{-- TODO: Update count dynamically --}}
             </h1>
             <div class="flex items-center gap-2 text-sm font-normal text-gray-700">
                 efficient project organization with real-time updates
@@ -37,11 +47,12 @@
             <i class="ki-outline ki-cross"></i>
         </button>
         <div class="modal-body">
-
-            <form action="#" class="card-body flex flex-col gap-5 p-10" id="sign_in_form" method="get">
+            {{-- Update form action, method, add csrf --}}
+            <form action="{{ route('builders.advanced.store') }}" class="card-body flex flex-col gap-5 p-10" id="add_project_form" method="POST">
+                @csrf
                 <div class="text-center mb-5">
-                    <h3 class="text-lg font-medium text-gray-900 leading-none mb-2.5">
-                        Create New Project
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white leading-none mb-2.5">
+                        Create New Advanced Project
                     </h3>
                     <div class="flex items-center justify-center font-medium">
                         <span class="text-2sm text-gray-500 me-1.5">
@@ -49,19 +60,26 @@
                         </span>
                     </div>
                 </div>
+                {{-- Add name attribute and error display --}}
                 <div class="flex flex-col gap-1">
-                    <label class="form-label font-normal text-gray-900">Project Name</label>
-                    <input class="input" placeholder="Enter project name" type="text" value="" />
+                    <label for="project_name" class="form-label font-normal text-gray-900 dark:text-gray-300">Project Name</label>
+                    <input id="project_name" name="name" class="input dark:bg-coal-400 dark:border-coal-300 dark:text-white" placeholder="Enter project name" type="text" value="{{ old('name') }}" required />
+                    @error('name')
+                        <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
+                    @enderror
                 </div>
+                 {{-- Add name attribute and error display --}}
                 <div class="flex flex-col gap-1">
                     <div class="flex items-center justify-between gap-1">
-                        <label class="form-label font-normal text-gray-900">Description</label>
+                        <label for="project_description" class="form-label font-normal text-gray-900 dark:text-gray-300">Description</label>
                     </div>
-                    <div class="input">
-                        <input placeholder="Enter short description" type="text" value="" />
-                    </div>
+                    {{-- Use textarea for potentially longer descriptions --}}
+                    <textarea id="project_description" name="description" class="input dark:bg-coal-400 dark:border-coal-300 dark:text-white" placeholder="Enter short description" rows="3">{{ old('description') }}</textarea>
+                     @error('description')
+                        <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
+                    @enderror
                 </div>
-                <button class="btn btn-primary flex justify-center grow mt-5">Save</button>
+                <button type="submit" class="btn btn-primary flex justify-center grow mt-5">Save Project</button>
             </form>
 
         </div>
@@ -244,5 +262,28 @@
     </div>
 </div>
 <!-- End of Container -->
+
+{{-- Script to reopen modal if validation fails --}}
+@if ($errors->has('name') || $errors->has('description'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Find the button that toggles the modal
+        const toggleButton = document.querySelector('[data-modal-toggle="#advanced_project_add_modal"]');
+        if (toggleButton) {
+            // Simulate a click on the button to open the modal
+            toggleButton.click();
+        } else {
+            console.error('Modal toggle button not found for #advanced_project_add_modal');
+            // Fallback: Try adding a class directly if the button method fails
+            const modal = document.getElementById('advanced_project_add_modal');
+            if (modal) {
+                 // You might need to inspect your modal's JS/CSS to find the correct active class
+                 // Common examples: 'show', 'modal-open', 'is-active'
+                 modal.classList.add('show'); // Replace 'show' if needed
+            }
+        }
+    });
+</script>
+@endif
 
 @endsection
