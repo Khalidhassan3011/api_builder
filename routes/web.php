@@ -9,6 +9,8 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::get('/dashboard', function () { return view('dashboard');})->name('dashboard');
 
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 Route::prefix('builders')->group(function () {
     Route::get('/easy', function () { return view('builders.easy.index');})->name('builders.easy.index');
 
