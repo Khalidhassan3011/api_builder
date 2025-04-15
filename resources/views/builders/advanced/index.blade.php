@@ -107,7 +107,7 @@
                                     <th class="w-[350px]">
                                         <span class="sort asc">
                                             <span class="sort-label text-gray-700 font-normal">
-                                                Team
+                                                Project
                                             </span>
                                             <span class="sort-icon">
                                             </span>
@@ -116,7 +116,16 @@
                                     <th class="w-[200px]">
                                         <span class="sort">
                                             <span class="sort-label text-gray-700 font-normal">
-                                                Rating
+                                                Tables
+                                            </span>
+                                            <span class="sort-icon">
+                                            </span>
+                                        </span>
+                                    </th>
+                                    <th class="w-[200px]">
+                                        <span class="sort asc">
+                                            <span class="sort-label text-gray-700 font-normal">
+                                                Records
                                             </span>
                                             <span class="sort-icon">
                                             </span>
@@ -126,15 +135,6 @@
                                         <span class="sort">
                                             <span class="sort-label text-gray-700 font-normal">
                                                 Last Modified
-                                            </span>
-                                            <span class="sort-icon">
-                                            </span>
-                                        </span>
-                                    </th>
-                                    <th class="w-[200px]">
-                                        <span class="sort asc">
-                                            <span class="sort-label text-gray-700 font-normal">
-                                                Members
                                             </span>
                                             <span class="sort-icon">
                                             </span>
@@ -154,67 +154,21 @@
                                     <td>
                                         <div class="flex flex-col gap-1.5">
                                             <a class="leading-none font-medium text-sm text-gray-900 hover:text-primary" href="#">
-                                                Product Management
+                                                Project Title
                                             </a>
                                             <span class="text-2sm text-gray-700 font-normal">
-                                                Overseeing product development and lifecycle
+                                                Project Description
                                             </span>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="rating">
-                                            <div class="rating-label checked">
-                                                <i class="rating-on ki-solid ki-star text-base leading-none">
-                                                </i>
-                                                <i class="rating-off ki-outline ki-star text-base leading-none">
-                                                </i>
-                                            </div>
-                                            <div class="rating-label checked">
-                                                <i class="rating-on ki-solid ki-star text-base leading-none">
-                                                </i>
-                                                <i class="rating-off ki-outline ki-star text-base leading-none">
-                                                </i>
-                                            </div>
-                                            <div class="rating-label checked">
-                                                <i class="rating-on ki-solid ki-star text-base leading-none">
-                                                </i>
-                                                <i class="rating-off ki-outline ki-star text-base leading-none">
-                                                </i>
-                                            </div>
-                                            <div class="rating-label checked">
-                                                <i class="rating-on ki-solid ki-star text-base leading-none">
-                                                </i>
-                                                <i class="rating-off ki-outline ki-star text-base leading-none">
-                                                </i>
-                                            </div>
-                                            <div class="rating-label checked">
-                                                <i class="rating-on ki-solid ki-star text-base leading-none">
-                                                </i>
-                                                <i class="rating-off ki-outline ki-star text-base leading-none">
-                                                </i>
-                                            </div>
-                                        </div>
+                                        10
                                     </td>
                                     <td class="text-sm text-gray-800 font-normal">
-                                        21 Oct, 2024
+                                        100
                                     </td>
                                     <td>
-                                        <div class="flex -space-x-2">
-                                            <div class="flex">
-                                                <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-light-light size-[30px]" src="assets/media/avatars/300-4.png" />
-                                            </div>
-                                            <div class="flex">
-                                                <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-light-light size-[30px]" src="assets/media/avatars/300-1.png" />
-                                            </div>
-                                            <div class="flex">
-                                                <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-light-light size-[30px]" src="assets/media/avatars/300-2.png" />
-                                            </div>
-                                            <div class="flex">
-                                                <span class="relative inline-flex items-center justify-center shrink-0 rounded-full ring-1 font-semibold leading-none text-3xs size-[30px] text-success-inverse ring-success-light bg-success">
-                                                    +10
-                                                </span>
-                                            </div>
-                                        </div>
+                                        21 Oct, 2024
                                     </td>
                                     <td>
                                         <a class="btn btn-sm btn-icon btn-clear btn-light" href="#">
