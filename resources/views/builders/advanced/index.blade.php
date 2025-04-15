@@ -17,7 +17,7 @@
     <div class="flex flex-wrap items-center lg:items-end justify-between gap-5 pb-7.5">
         <div class="flex flex-col justify-center gap-2">
             <h1 class="text-xl font-medium leading-none text-gray-900">
-                Projects(14) {{-- TODO: Update count dynamically --}}
+                Projects({{ count($projects) }})
             </h1>
             <div class="flex items-center gap-2 text-sm font-normal text-gray-700">
                 efficient project organization with real-time updates
@@ -147,43 +147,53 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @forelse ($projects as $project)
                                 <tr>
                                     <td class="text-center">
-                                        <input class="checkbox checkbox-sm" data-datatable-row-check="true" type="checkbox" value="1" />
+                                        <input class="checkbox checkbox-sm" data-datatable-row-check="true" type="checkbox" value="{{ $project->id }}" />
                                     </td>
                                     <td>
                                         <div class="flex flex-col gap-1.5">
+                                            {{-- TODO: Add route for showing project details --}}
                                             <a class="leading-none font-medium text-sm text-gray-900 hover:text-primary" href="#">
-                                                Project Title
+                                                {{ $project->name }}
                                             </a>
                                             <span class="text-2sm text-gray-700 font-normal">
-                                                Project Description
+                                                {{ $project->description ?? 'No description' }}
                                             </span>
                                         </div>
                                     </td>
                                     <td>
-                                        10
+                                        {{ $project->tables }} {{-- Assuming 'tables' is a column --}}
                                     </td>
                                     <td class="text-sm text-gray-800 font-normal">
-                                        100
+                                        {{ $project->total_data }} {{-- Assuming 'total_data' is a column --}}
                                     </td>
                                     <td>
-                                        21 Oct, 2024
+                                        {{ $project->updated_at->format('d M, Y') }}
                                     </td>
                                     <td>
+                                        {{-- TODO: Add route for editing project --}}
                                         <a class="btn btn-sm btn-icon btn-clear btn-light" href="#">
                                             <i class="ki-filled ki-notepad-edit">
                                             </i>
                                         </a>
                                     </td>
                                     <td>
+                                        {{-- TODO: Add route/logic for deleting project --}}
                                         <a class="btn btn-sm btn-icon btn-clear btn-light" href="#">
                                             <i class="ki-filled ki-trash">
                                             </i>
                                         </a>
                                     </td>
                                 </tr>
-
+                                @empty
+                                <tr>
+                                    <td colspan="7" class="text-center py-5 text-gray-500">
+                                        No projects found. Create one using the button above!
+                                    </td>
+                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

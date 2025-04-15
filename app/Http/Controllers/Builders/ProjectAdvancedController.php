@@ -15,7 +15,11 @@ class ProjectAdvancedController extends Controller
      */
     public function index()
     {
-        //
+        // Get projects belonging to the authenticated user
+        $projects = Auth::user()->projectsAdvanced()->latest()->get();
+
+        // Pass the projects to the view
+        return view('builders.advanced.index', compact('projects'));
     }
 
     /**

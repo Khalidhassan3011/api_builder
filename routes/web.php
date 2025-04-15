@@ -17,7 +17,7 @@ Route::middleware(RedirectIfNotAuthenticated::class)->group(function () {
         Route::get('/easy', function () { return view('builders.easy.index');})->name('builders.easy.index');
 
         // Routes for Advanced Builder
-        Route::get('/advanced', function () { return view('builders.advanced.index');})->name('builders.advanced.index');
+        Route::get('/advanced', [ProjectAdvancedController::class, 'index'])->name('builders.advanced.index'); // Use controller index method
         Route::post('/advanced', [ProjectAdvancedController::class, 'store'])->name('builders.advanced.store'); // Add POST route for storing
     });
 });
