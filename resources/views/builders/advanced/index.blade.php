@@ -13,15 +13,6 @@
 
 @section('content')
 
-{{-- Display Success Message --}}
-@if (session('success'))
-    <div class="container-fixed mb-5">
-        <div class="bg-success-light border border-success text-success px-4 py-3 rounded relative" role="alert">
-            <span class="block sm:inline">{{ session('success') }}</span>
-        </div>
-    </div>
-@endif
-
 <div class="container-fixed">
     <div class="flex flex-wrap items-center lg:items-end justify-between gap-5 pb-7.5">
         <div class="flex flex-col justify-center gap-2">
@@ -65,18 +56,18 @@
                     <label for="project_name" class="form-label font-normal text-gray-900 dark:text-gray-300">Project Name</label>
                     <input id="project_name" name="name" class="input dark:bg-coal-400 dark:border-coal-300 dark:text-white" placeholder="Enter project name" type="text" value="{{ old('name') }}" required />
                     @error('name')
-                        <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
+                    <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
                     @enderror
                 </div>
-                 {{-- Add name attribute and error display --}}
+                {{-- Add name attribute and error display --}}
                 <div class="flex flex-col gap-1">
                     <div class="flex items-center justify-between gap-1">
                         <label for="project_description" class="form-label font-normal text-gray-900 dark:text-gray-300">Description</label>
                     </div>
                     {{-- Use textarea for potentially longer descriptions --}}
                     <textarea id="project_description" name="description" class="input dark:bg-coal-400 dark:border-coal-300 dark:text-white" placeholder="Enter short description" rows="3">{{ old('description') }}</textarea>
-                     @error('description')
-                        <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
+                    @error('description')
+                    <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
                     @enderror
                 </div>
                 <button type="submit" class="btn btn-primary flex justify-center grow mt-5">Save Project</button>
@@ -262,5 +253,149 @@
     </div>
 </div>
 <!-- End of Container -->
+
+<script>
+
+// Add this script to your page (can be in a separate JS file or inline in the blade file)
+document.addEventListener('DOMContentLoaded', function() {
+    const projectForm = document.getElementById('add_project_form');
+    
+    if (projectForm) {
+        projectForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading state on button
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...';
+            submitButton.disabled = true;
+            
+            // Gather form data
+            const formData = new FormData(this);
+
+            // Get CSRF token safely
+            let headers = {
+                'X-Requested-With': 'XMLHttpRequest'
+            };
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]');
+            if (csrfToken) {
+                headers['X-CSRF-TOKEN'] = csrfToken.getAttribute('content');
+            } else {
+                // Fallback to input token if meta tag is not present
+                const inputToken = document.querySelector('input[name="_token"]');
+                if (inputToken) {
+                    headers['X-CSRF-TOKEN'] = inputToken.value;
+                } else {
+                    console.error('CSRF token not found');
+                }
+            }
+            
+            // Send AJAX request
+            fetch(this.getAttribute('action'), {
+                method: 'POST',
+                body: formData,
+                headers: headers
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Reset button state
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
+                
+                if (data.success) {
+                    // Success case
+                    // Show success message
+                    showNotification('Success!', data.message, 'success');
+                    
+                    // Close modal
+                    const modal = document.getElementById('advanced_project_add_modal');
+                    if (typeof KTModal !== 'undefined') {
+                        const modalInstance = KTModal.getInstance(modal);
+                        if (modalInstance) {
+                            modalInstance.hide();
+                        }
+                    } else {
+                        // Fallback for simpler modal systems
+                        modal.classList.remove('show');
+                        document.querySelector('[data-modal-backdrop]')?.remove();
+                    }
+                    
+                    // Reset form
+                    projectForm.reset();
+                    
+                    // Optionally refresh the table or add the new item to it
+                    if (data.project) {
+                        // addProjectToTable(data.project);
+                    } else {
+                        // If you prefer to refresh the entire list
+                        // window.location.reload();
+                    }
+                } else {
+                    // Error case
+                    // Display validation errors if any
+                    if (data.errors) {
+                        displayFormErrors(data.errors);
+                    } else {
+                        showNotification('Error!', data.message || 'Something went wrong', 'error');
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
+                showNotification('Error!', 'An unexpected error occurred', 'error');
+            });
+        });
+    }
+});
+
+// Helper function to display validation errors
+function displayFormErrors(errors) {
+    // Clear existing error messages
+    document.querySelectorAll('.error-message').forEach(el => el.remove());
+    
+    // Reset input borders
+    document.querySelectorAll('.input').forEach(input => {
+        input.classList.remove('border-red-500');
+    });
+    
+    // Display new error messages
+    for (const field in errors) {
+        const input = document.querySelector(`[name="${field}"]`);
+        if (input) {
+            input.classList.add('border-red-500');
+            
+            const errorMessage = document.createElement('p');
+            errorMessage.className = 'mt-1 text-xs text-red-600 dark:text-red-400 error-message';
+            errorMessage.textContent = errors[field][0]; // Take the first error message
+            
+            input.parentNode.appendChild(errorMessage);
+        }
+    }
+}
+
+// Helper function to show notifications
+function showNotification(title, message, type = 'info') {
+        Swal.fire({
+            title: title,
+            text: message || 'Project created successfully!',
+            icon: type,
+            confirmButtonText: 'OK'
+        });
+}
+
+// Function to add a new project to the table (if needed)
+function addProjectToTable(project) {
+    // This would be customized based on your table structure
+    // Example implementation (adjust based on your actual table)
+    
+    // For now, simplest solution is to reload the page
+    // In a real implementation, you would dynamically add the new row
+    window.location.reload();
+}
+
+</script>
 
 @endsection

@@ -31,27 +31,50 @@ class ProjectAdvancedController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-                // Ensure the name is unique for the current user's projects
-                Rule::unique('projects_advanced')->where(function ($query) {
-                    return $query->where('user_id', Auth::id());
-                }),
-            ],
-            'description' => ['nullable', 'string'],
-        ]);
-
-        // Create the project associated with the authenticated user
-        Auth::user()->projectsAdvanced()->create([
-            'name' => $validatedData['name'],
-            'description' => $validatedData['description'],
-            // 'tables' and 'total_data' will use default values from migration
-        ]);
-
-        return redirect()->route('builders.advanced.index')->with('success', 'Project created successfully!');
+        try {
+            $validatedData = $request->validate([
+                'name' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    // Ensure the name is unique for the current user's projects
+                    Rule::unique('projects_advanced')->where(function ($query) {
+                        return $query->where('user_id', Auth::id());
+                    }),
+                ],
+                'description' => ['nullable', 'string'],
+            ]);
+    
+            // Create the project associated with the authenticated user
+            $project = Auth::user()->projectsAdvanced()->create([
+                'name' => $validatedData['name'],
+                'description' => $validatedData['description'],
+                // 'tables' and 'total_data' will use default values from migration
+            ]);
+    
+            // If it's an AJAX request, return JSON response
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Project created successfully!',
+                    'project' => $project
+                ]);
+            }
+    
+            // For regular form submissions, redirect with success message
+            return redirect()->route('builders.advanced.index')->with('success', 'Project created successfully!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Handle validation errors
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => $e->errors()
+                ], 422);
+            }
+            
+            // Re-throw for regular form submissions to let Laravel handle it
+            throw $e;
+        }
     }
 
     /**
