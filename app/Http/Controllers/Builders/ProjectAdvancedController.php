@@ -15,7 +15,7 @@ class ProjectAdvancedController extends Controller
      */
     public function index()
     {
-        // Get projects belonging to the authenticated user
+        // Get projects belonging to the authenticated user, latest first
         $projects = Auth::user()->projectsAdvanced()->latest()->get();
 
         // Pass the projects to the view

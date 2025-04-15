@@ -101,11 +101,9 @@
                         <table class="table table-fixed table-border" data-datatable-table="true">
                             <thead>
                                 <tr>
-                                    <th class="w-[60px] text-center">
-                                        <input class="checkbox checkbox-sm" data-datatable-check="true" type="checkbox" />
-                                    </th>
+                                    <th class="w-[60px] text-center">#</th> {{-- Changed header --}}
                                     <th class="w-[350px]">
-                                        <span class="sort asc">
+                                        <span class="sort"> {{-- Removed default 'asc' sort --}}
                                             <span class="sort-label text-gray-700 font-normal">
                                                 Project
                                             </span>
@@ -113,7 +111,7 @@
                                             </span>
                                         </span>
                                     </th>
-                                    <th class="w-[200px]">
+                                    <th class="w-[100px]">
                                         <span class="sort">
                                             <span class="sort-label text-gray-700 font-normal">
                                                 Tables
@@ -122,8 +120,8 @@
                                             </span>
                                         </span>
                                     </th>
-                                    <th class="w-[200px]">
-                                        <span class="sort asc">
+                                    <th class="w-[100px]">
+                                        <span class="sort">
                                             <span class="sort-label text-gray-700 font-normal">
                                                 Records
                                             </span>
@@ -150,7 +148,7 @@
                                 @forelse ($projects as $project)
                                 <tr>
                                     <td class="text-center">
-                                        <input class="checkbox checkbox-sm" data-datatable-row-check="true" type="checkbox" value="{{ $project->id }}" />
+                                        {{ $loop->iteration }} {{-- Display ascending row number (1, 2, 3...) --}}
                                     </td>
                                     <td>
                                         <div class="flex flex-col gap-1.5">
@@ -170,7 +168,7 @@
                                         {{ $project->total_data }} {{-- Assuming 'total_data' is a column --}}
                                     </td>
                                     <td>
-                                        {{ $project->updated_at->format('d M, Y') }}
+                                        {{ $project->updated_at->format('d M, Y h:i A') }} {{-- Added time with AM/PM --}}
                                     </td>
                                     <td>
                                         {{-- TODO: Add route for editing project --}}
@@ -274,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Close modal
                     const modal = document.getElementById('advanced_project_add_modal');
-                    if (typeof KTModal !== 'undefined') {
+                    if (modal && typeof KTModal !== 'undefined') { // Added null check for modal
                         const modalInstance = KTModal.getInstance(modal);
                         if (modalInstance) {
                             modalInstance.hide();
@@ -357,8 +355,48 @@ function addProjectToTable(project) {
     
     // For now, simplest solution is to reload the page
     // In a real implementation, you would dynamically add the new row
-    window.location.reload();
+    window.location.reload(); // Reload to see the new project in the list
 }
+
+// Function to re-number table rows sequentially after datatable initialization/updates
+function renumberTableRows(tableId) {
+    const tableBody = document.querySelector(`#${tableId} tbody`);
+    if (!tableBody) return;
+
+    const renumber = () => {
+        const rows = tableBody.querySelectorAll('tr');
+        let counter = 1;
+        rows.forEach(row => {
+            // Skip the 'empty' row if it exists
+            if (row.querySelector('td[colspan]')) {
+                return; 
+            }
+            const firstCell = row.querySelector('td:first-child');
+            if (firstCell) {
+                firstCell.textContent = counter++;
+            }
+        });
+    };
+
+    // Initial numbering
+    renumber();
+
+    // Use MutationObserver to re-number whenever the table body changes (sorting, pagination, search)
+    const observer = new MutationObserver(renumber);
+    observer.observe(tableBody, { childList: true, subtree: true });
+
+    // Optional: If using a specific datatable library with events, hook into its draw/render event
+    // Example for DataTables.net:
+    // $(`#${tableId}`).on('draw.dt', renumber); 
+}
+
+// Call the renumber function after the datatable is likely initialized
+document.addEventListener('DOMContentLoaded', function() {
+    // ... existingDOMContentLoaded code ...
+
+    // Renumber the table rows
+    renumberTableRows('teams_table'); 
+});
 
 </script>
 
