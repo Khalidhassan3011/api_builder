@@ -263,27 +263,4 @@
 </div>
 <!-- End of Container -->
 
-{{-- Script to reopen modal if validation fails --}}
-@if ($errors->has('name') || $errors->has('description'))
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Find the button that toggles the modal
-        const toggleButton = document.querySelector('[data-modal-toggle="#advanced_project_add_modal"]');
-        if (toggleButton) {
-            // Simulate a click on the button to open the modal
-            toggleButton.click();
-        } else {
-            console.error('Modal toggle button not found for #advanced_project_add_modal');
-            // Fallback: Try adding a class directly if the button method fails
-            const modal = document.getElementById('advanced_project_add_modal');
-            if (modal) {
-                 // You might need to inspect your modal's JS/CSS to find the correct active class
-                 // Common examples: 'show', 'modal-open', 'is-active'
-                 modal.classList.add('show'); // Replace 'show' if needed
-            }
-        }
-    });
-</script>
-@endif
-
 @endsection
